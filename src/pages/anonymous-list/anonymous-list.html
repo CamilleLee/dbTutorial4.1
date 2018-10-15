@@ -1,0 +1,54 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Employee Information</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-item *ngFor="let employee of employees | async">
+     <h1> {{employee.FirstName}} {{employee.LastName}} </h1>
+	<p> EmployeeID: {{employee.EmployeeID}} </p>
+	<p> Position: {{employee.Position}} </p>
+
+	<p><u> Certifications: </u></p>
+	<div *ngFor="let cert of certifications | async">
+		<div *ngIf="cert.EmployeeID == employee.EmployeeID">
+
+			<div *ngIf="(cert.ExpirationDate - (today | date: 'yyyyMMdd')) >= 10000">
+			 	<p><font color="green"> &nbsp;&nbsp;&nbsp;&nbsp;{{cert.Name}} </font></p>
+			</div>
+			<div *ngIf="(cert.ExpirationDate - (today | date: 'yyyyMMdd')) <= 0">
+				<p><font color="red"> &nbsp;&nbsp;&nbsp;&nbsp;{{cert.Name}} </font></p>
+			</div>
+			<div *ngIf="(cert.ExpirationDate - (today | date: 'yyyyMMdd')) > 0 && (cert.ExpirationDate - (today | date: 'yyyyMMdd')) < 10000">
+				<p><font color="orange"> &nbsp;&nbsp;&nbsp;&nbsp;{{cert.Name}} </font></p>
+			</div>
+		</div>
+	</div>
+	
+	<p><u> Training Status: </u></p>
+	<div *ngFor="let train of trainings | async">
+		<div *ngIf="train.EmployeeID == employee.EmployeeID">
+
+			<div *ngIf="(train.ExpirationDate - (today | date: 'yyyyMMdd')) >= 10000">
+			 	<p><font color="green"> &nbsp;&nbsp;&nbsp;&nbsp;{{train.Name}} </font></p>
+			</div>
+			<div *ngIf="(train.ExpirationDate - (today | date: 'yyyyMMdd')) <= 0">
+				<p><font color="red"> &nbsp;&nbsp;&nbsp;&nbsp;{{train.Name}} </font></p>
+			</div>
+			<div *ngIf="(train.ExpirationDate - (today | date: 'yyyyMMdd')) > 0 && (train.ExpirationDate - (today | date: 'yyyyMMdd')) < 10000">
+				<p><font color="orange"> &nbsp;&nbsp;&nbsp;&nbsp;{{train.Name}} </font></p>
+			</div>
+		</div>
+	</div>
+
+
+
+
+    </ion-item>
+  </ion-list>
+</ion-content>
